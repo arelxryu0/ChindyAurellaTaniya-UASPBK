@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Akun</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <div class="form-container">
+    <img src="img/logo.png" alt="Logo Kantin Digital" class="logo-img">
+    <h1>Daftar Akun</h1>
+    <form class="form-box" onsubmit="return daftar(event)">
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama">
+      <label>NPM</label>
+      <input type="text" id="nim">
+      <label>Angkatan/Kelas</label>
+      <input type="text" id="kelas">
+      <label>Password</label>
+      <input type="password" id="password">
+      <div class="btn-group">
+        <button type="submit" class="btn">Selesai</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function daftar(event) {
+      event.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const nim = document.getElementById('nim').value.trim();
+      const kelas = document.getElementById('kelas').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!nama || !nim || !kelas || !password) {
+        alert("Harap isi semua kolom.");
+        return false;
+      }
+
+      const user = { nama, nim, kelas, password };
+      localStorage.setItem('user', JSON.stringify(user));
+      alert("Pendaftaran berhasil! Silakan login.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Kantin Digital</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <div class="form-container">
+    <img src="img/logo.png" alt="Logo Kantin Digital" class="logo-img">
+    <h1>Selamat Datang di Kantin Digital</h1>
+    <p>Silakan Daftar Terlebih Dahulu Jika Belum Memiliki Akun</p>
+
+    <form class="form-box" onsubmit="return login(event)">
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan Nama">
+      <label>No Mahasiswa/i</label>
+      <input type="text" id="nim" placeholder="Masukkan NPM">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Masukkan Password">
+      <div class="btn-group">
+        <button type="submit" class="btn">Login</button>
+        <a href="register.html" class="btn">Daftar</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function login(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById('nama').value.trim();
+      const nim = document.getElementById('nim').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!nama || !nim || !password) {
+        alert("Harap isi semua kolom sebelum login.");
+        return false;
+      }
+
+      const savedUser = JSON.parse(localStorage.getItem('user'));
+      if (!savedUser) {
+        alert("Belum ada akun terdaftar. Silakan daftar terlebih dahulu.");
+        return false;
+      }
+
+      if (nama === savedUser.nama && nim === savedUser.nim && password === savedUser.password) {
+        alert("Login berhasil!");
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Nama, NIM, atau password salah.");
+      }
+    }
+  </script>
+</body>
+</html>

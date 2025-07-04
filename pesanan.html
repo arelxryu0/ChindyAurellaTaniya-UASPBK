@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesanan</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <style>
+    .pesanan-list {
+      background: #131212;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .pesanan-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .pesanan-item button {
+      padding: 4px 10px;
+      font-size: 16px;
+      border: none;
+      background-color: #444;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .pesanan-item span {
+      margin: 0 8px;
+    }
+
+    #total-harga {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
+
+    /* Tombol Dark Mode */
+    #darkToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #ddd;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .main {
+      background-color: #2b2b2b;
+    }
+
+    body.dark-mode .pesanan-list {
+      background-color: #3a3a3a;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .btn,
+    body.dark-mode .pesanan-item button {
+      background-color: #5c5c5c;
+      color: white;
+    }
+
+    body.dark-mode .btn:hover,
+    body.dark-mode .pesanan-item button:hover {
+      background-color: #777;
+    }
+
+    body.dark-mode .sidebar {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <button id="darkToggle">🌓</button>
+
+  <div class="sidebar">
+    <img src="img/logo.png" class="sidebar-logo">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">Profil</a>
+    <a href="pesanan.html" class="active">Pesanan</a>
+    <a href="menu.html">Menu</a>
+    <a href="index.html">Logout</a>
+  </div>
+
+  <div class="main brown-bg">
+    <h2>Pesanan Anda</h2>
+    <div class="pesanan-list" id="daftar-pesanan"></div>
+    <h3 id="total-harga">Total: Rp 0</h3>
+    <button class="btn" onclick="checkout()">Checkout</button>
+  </div>
+
+  <script>
+    function updateTotal(pesanan) {
+      const total = pesanan.reduce((sum, item) => sum + item.harga * item.jumlah, 0);
+      document.getElementById('total-harga').innerText = "Total: Rp " + total.toLocaleString();
+    }
+
+    function tampilkanPesanan() {
+      const daftar = document.getElementById('daftar-pesanan');
+      let pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+
+      daftar.innerHTML = '';
+
+      if (pesanan.length === 0) {
+        daftar.innerHTML = '<p>Belum ada pesanan.</p>';
+        document.getElementById('total-harga').style.display = 'none';
+        return;
+      } else {
+        document.getElementById('total-harga').style.display = 'block';
+      }
+
+      pesanan.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'pesanan-item';
+        div.innerHTML = `
+          <span>${item.nama}</span>
+          <div>
+            <button onclick="ubahJumlah(${i}, -1)">−</button>
+            <span>${item.jumlah}</span>
+            <button onclick="ubahJumlah(${i}, 1)">+</button>
+          </div>
+          <span>Rp ${(item.harga * item.jumlah).toLocaleString()}</span>
+        `;
+        daftar.appendChild(div);
+      });
+
+      updateTotal(pesanan);
+    }
+
+    function ubahJumlah(index, perubahan) {
+      let pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+      pesanan[index].jumlah += perubahan;
+
+      if (pesanan[index].jumlah <= 0) {
+        pesanan.splice(index, 1);
+      }
+
+      localStorage.setItem('pesanan', JSON.stringify(pesanan));
+      tampilkanPesanan();
+    }
+
+    function checkout() {
+      if (confirm("Yakin ingin checkout?")) {
+        const pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+        const waktu = new Date().toLocaleString();
+
+        localStorage.setItem('strukTerakhir', JSON.stringify({
+          pesanan,
+          waktu
+        }));
+
+        localStorage.removeItem('pesanan');
+        window.location.href = "struk.html";
+      }
+    }
+
+    // Dark Mode
+    const toggleBtn = document.getElementById('darkToggle');
+    if (localStorage.getItem('mode') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const mode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+      localStorage.setItem('mode', mode);
+    });
+
+    tampilkanPesanan();
+  </script>
+</body>
+</html>

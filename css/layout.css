@@ -1,0 +1,57 @@
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #111;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.sidebar a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.sidebar a:hover, .sidebar a.active {
+  background: red;
+}
+.main {
+  margin-left: 210px;
+  padding: 20px;
+  background-color: #3e2723;
+  min-height: 100vh;
+  color: white;
+}
+.brown-bg {
+  background-color: #3e2723;
+  min-height: 100vh;
+}
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.menu-card {
+  background: white;
+  color: black;
+  border-radius: 20px;
+  padding: 10px;
+  width: 160px;
+  text-align: center;
+}
+.menu-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+.promo {
+  background: #222;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+}

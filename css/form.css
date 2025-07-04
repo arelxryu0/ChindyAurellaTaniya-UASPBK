@@ -1,0 +1,31 @@
+.form-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+.form-box {
+  background: white;
+  color: rgb(68, 66, 66);
+  padding: 30px;
+  border-radius: 25px;
+  margin-top: 20px;
+}
+.form-box label {
+  display: block;
+  margin: 15px 0 5px;
+  text-align: left;
+}
+.form-box input {
+  width: 100%;
+  padding: 12px;
+  background-color: #eee;
+  border: none;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
