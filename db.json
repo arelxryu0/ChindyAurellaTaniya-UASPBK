@@ -1,0 +1,29 @@
+{
+  "bookings": [
+    {
+      "id": "b4a5",
+      "nama": "1",
+      "tanggal": "2025-07-06",
+      "jam": "00:48",
+      "layanan": "Cukur"
+    },
+    {
+      "id": "8cbf",
+      "nama": "Chindy Aurella Taniya",
+      "tanggal": "2025-07-20",
+      "jam": "10:00",
+      "layanan": "Studio Video",
+      "durasi": 5,
+      "totalHarga": 1000000
+    },
+    {
+      "id": "a603",
+      "nama": "a",
+      "tanggal": "2025-07-14",
+      "jam": "10:00",
+      "layanan": "Studio Video",
+      "durasi": 2,
+      "totalHarga": 400000
+    }
+  ]
+}
